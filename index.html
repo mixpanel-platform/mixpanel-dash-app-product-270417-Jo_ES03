@@ -30,6 +30,8 @@
         var eventName = eventSelect.MPEventSelect('value'),
             propName  = propSelect.MPPropertySelect('value'),
             dateRange = dateSelect.MPDatepicker('value');
+        dateRange['unit'] = 'month'
+        console.log(dateRange)
             
             all = MP.api.segment(eventName, propName, {from: moment().subtract(24, 'months'), where:'defined (properties["'+propName+'"])'});
             
