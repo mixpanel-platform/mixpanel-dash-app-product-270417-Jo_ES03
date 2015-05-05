@@ -31,9 +31,8 @@
             propName  = propSelect.MPPropertySelect('value'),
             dateRange = dateSelect.MPDatepicker('value');
         dateRange['unit'] = 'month'
-        console.log(dateRange)
             
-            all = MP.api.segment(eventName, propName, {from: moment().subtract(24, 'months'), where:'defined (properties["'+propName+'"])'});
+            all = MP.api.segment(eventName, propName, {from: moment().subtract(24, 'months'), unit: 'month', where:'defined (properties["'+propName+'"])'});
             
             range = MP.api.segment(eventName, propName, dateRange)
             
@@ -58,15 +57,20 @@
             for (i in all.values()){
               if (!(i in complete)) {
                 complete[i] = empty
+                
               } else {
                 count = 0
-                for (d in all[i]){
-                  count += all[i][d]
+                for (d in range[i]){
+                  count += range[i][d]
                 }
                 complete[i]['2015-04-01'] = count
               }
             };
+            
+            console.log(all.values())
+            console.log(range.values())
             console.log(complete)
+            
             eventGraph.MPChart('setData', complete);
             eventTable.MPTable('setData', complete);
           });
