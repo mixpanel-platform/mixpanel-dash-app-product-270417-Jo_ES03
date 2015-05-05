@@ -49,12 +49,19 @@
             
             for (date in range.values()[rand]){
               empty[date] = 0
+              empty['total'] = 0
             }
             
             var complete = range.values()
             for (i in all.values()){
               if (!(i in complete)) {
                 complete[i] = empty
+              } else {
+                count = 0
+                for (d in complete[i]){
+                  count += complete[i][d]
+                }
+                complete[i]['total'] = count
               }
             };
             
