@@ -51,7 +51,7 @@
             
             for (date in range.values()[rand]){
               empty[date] = 0
-              empty['total'] = 0
+              empty['2015-04-01'] = 0
             }
             
             var complete = range.values()
@@ -60,13 +60,13 @@
                 complete[i] = empty
               } else {
                 count = 0
-                for (d in complete[i]){
-                  count += complete[i][d]
+                for (d in all[i]){
+                  count += all[i][d]
                 }
-                complete[i]['total'] = count
+                complete[i]['2015-04-01'] = count
               }
             };
-            
+            console.log(complete)
             eventGraph.MPChart('setData', complete);
             eventTable.MPTable('setData', complete);
           });
