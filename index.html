@@ -5,6 +5,36 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/css/reset.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.css">
     <script src="https://cdn.mxpnl.com/libs/mixpanel-platform/build/mixpanel-platform.v0.latest.min.js"></script>
+    <style>
+      b { 
+        font-weight: bold;
+      }
+      
+      ul {
+        width: 80%;
+      }
+      
+      li {
+        width: 40%;
+        height: 5px;
+        display: inline-block;
+      }
+      
+      #notPresent {
+        margin: 10px auto;
+        padding: 10px;
+        width: 80%;
+      }
+      
+      #label {
+        font-size: 20px;
+        padding: 10px;
+      }
+      
+      #items {
+        margin-left: 50px;
+      } 
+    </style>
   </head>
   <body class="mixpanel-platform-body">
     <div class="mixpanel-platform-section">
@@ -16,8 +46,8 @@
       <div id="graph"></div>
     </div>
     <div id="table"></div>
-    <div id="notPresent" style="margin: 10px; padding: 10px;">
-      <div id="label" style="size: 20px;"></div>
+    <div id="notPresent">
+      <div id="label"></div>
       <div id="items"></div>
     </div>
     <script>
@@ -67,7 +97,7 @@
             label = document.getElementById("label")
             items = document.getElementById('items')
             
-            label.innerHTML = "<b>"+propName+"'s</b> seen in last two years but not present in current data:";
+            label.innerHTML = "<b>"+propName+"'s</b> seen in last two years but not present in current data:</br>";
             console.log(empty)
             listOut = "<ul>";
             for (i in empty.sort()){
