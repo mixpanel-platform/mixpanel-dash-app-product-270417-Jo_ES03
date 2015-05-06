@@ -16,6 +16,10 @@
       <div id="graph"></div>
     </div>
     <div id="table"></div>
+    <div id="notPresent" style="margin: 10px; padding: 10px;">
+      <div id="label" style="size: 20px;"></div>
+      <div id="items"></div>
+    </div>
     <script>
       var eventSelect = $('#eventSelect').MPEventSelect();
       var propSelect  = $('#propSelect').MPPropertySelect();
@@ -30,9 +34,12 @@
         var eventName = eventSelect.MPEventSelect('value'),
             propName  = propSelect.MPPropertySelect('value'),
             dateRange = dateSelect.MPDatepicker('value');
-        dateRange['unit'] = 'week'
             
-            all = MP.api.segment(eventName, propName, {from: moment().subtract(24, 'months'), unit: 'week', limit:1000});
+        unit = 'day'    
+        
+        dateRange['unit'] = unit
+        
+            all = MP.api.segment(eventName, propName, {from: moment().subtract(24, 'months'), unit: unit, limit:1000});
             
             range = MP.api.segment(eventName, propName, dateRange)
             
@@ -40,35 +47,35 @@
         if (eventName) {
           
           $.when(all, range).done(function(all, range) {
-            
-            for (i in range.values()){
-              var rand = i
-              break;
-            }
-            
-            var empty = {}
-            
-            for (date in range.values()[rand]){
-              empty[date] = 0
-              empty['$Total'] = 0
-            }
-            
-            var complete = range.values()
+
+            empty = []
+            complete = range.values()
             for (i in all.values()){
               if (!(i in complete)) {
-                complete[i] = empty
-                
+                empty.push(i)
               } else {
                 count = 0
                 for (d in complete[i]){
                   count += complete[i][d]
                 }
-                complete[i]['$Total'] = count
+                complete[i]['-Total'] = count
               }
             };
             
             eventGraph.MPChart('setData', range);
             eventTable.MPTable('setData', complete);
+            label = document.getElementById("label")
+            items = document.getElementById('items')
+            
+            label.innerHTML = "<b>"+propName+"'s</b> seen in last two years but not present in current data:";
+            console.log(empty)
+            listOut = "<ul>";
+            for (i in empty.sort()){
+              listOut += "<li>"+empty[i]+"</li>";
+            }
+            listOut += "</ul>";
+            items.innerHTML = listOut;
+            
           });
           
         }
