@@ -74,10 +74,19 @@
             range = MP.api.segment(eventName, propName, dateRange)
             
 
-        if (eventName) {
+        if (eventName && propName) {
           
           $.when(all, range).done(function(all, range) {
 
+            var venues = [
+              "ACME",
+              "AOA Bar & Grill",
+              "All American Rathskeller",
+              "Andanada",
+              "Arroyo Mexican Grill",
+              "Bagatelle"
+            ];
+             
             empty = []
             complete = range.values()
             for (i in all.values()){
@@ -87,8 +96,8 @@
                 count = 0
                 for (d in complete[i]){
                   count += complete[i][d]
-                }
                 complete[i]['-Total'] = count
+                }
               }
             };
             
