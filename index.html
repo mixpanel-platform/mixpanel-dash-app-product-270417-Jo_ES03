@@ -69,7 +69,7 @@
         
         dateRange['unit'] = unit
         
-            all = MP.api.segment(eventName, propName, {from: moment().subtract(24, 'months'), unit: unit, limit:1000});
+            all = MP.api.segment(eventName, propName, {from: moment().subtract(22, 'months'), unit: unit, limit:1000});
             
             range = MP.api.segment(eventName, propName, dateRange)
             
